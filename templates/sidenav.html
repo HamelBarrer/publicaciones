@@ -1,0 +1,36 @@
+{% url 'users:login' as login %}
+{% url 'users:logout' as logout %}
+{% url 'users:register' as register %}
+
+<ul id="slide-out" class="sidenav sidenav-fixed">
+    {% if user.is_authenticated %}
+        <li>
+            <div class="user-view">
+                <div class="background">
+                    <img src="images/office.jpg">
+                </div>
+                <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+                <a href="#name"><span class="white-text name">John Doe</span></a>
+                <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+            </div>
+        </li>
+        <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+        <li><a href="#!">Second Link</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+        <li class="{% if request.path == logout %}active{% endif %}"><a class="waves-effect" href="{{ logout }}"><i
+                class="material-icons">logout</i>Cerrar Sesion</a>
+        </li>
+    {% else %}
+        <li class="{% if request.path == login %}active{% endif %}"><a class="waves-effect" href="{{ login }}"><i
+                class="material-icons">login</i>Iniciar Sesion</a>
+        </li>
+        <li class="{% if request.path == register %}active{% endif %}"><a class="waves-effect" href="{{ register }}"><i
+                class="material-icons">person_add</i>Registrarse</a>
+        </li>
+    {% endif %}
+</ul>
+<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
