@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="card">
+        <div class="card-content">
+            <h2 class="card-title">Crear Publicacion</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for post in form %}
+                    <div class="row">
+                        <div class="input-field col s12">
+                            {{ post }}
+                            {{ post.label_tag }}
+                        </div>
+                    </div>
+                {% endfor %}
+                <button class="btn waves-effect waves-light green" type="submit" name="action">
+                    Crear Publicacion
+                    <i class="material-icons right">send</i>
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

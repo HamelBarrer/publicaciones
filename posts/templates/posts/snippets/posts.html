@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col s12 m10">
+        <h2>Comentarios</h2>
+    </div>
+    <div class="col s12 m2">
+        <a href="{% url 'posts:add_post' %}" class="btn waves-effect waves-light red">Agregar</a>
+    </div>
+    {% if posts %}
+        {% for post in posts %}
+            {% include 'posts/snippets/list_post.html' %}
+        {% endfor %}
+    {% endif %}
+</div>

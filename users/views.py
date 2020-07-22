@@ -2,10 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 
+from .models import User
 from .forms import UserRegister
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('posts:post')
+
     template_name = 'users/login.html'
 
     if request.method == 'POST':
@@ -17,7 +21,7 @@ def login_view(request):
         if user:
             login(request, user)
             messages.success(request, f'Bienvenido {user.username}')
-            return redirect()
+            return redirect('posts:post')
         else:
             messages.error(request, 'Usuario o Contraseña invalidos')
 
@@ -31,6 +35,9 @@ def logout_view(request):
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('posts:post')
+
     template_name = 'users/register.html'
     form = UserRegister(request.POST)
 
@@ -40,7 +47,7 @@ def register(request):
         if user:
             login(request, user)
             messages.success(request, f'La cuenta {user.username} fue creada exitosamente')
-            return redirect()
+            return redirect('posts:post')
 
     return render(request, template_name, {
         'form': form,
