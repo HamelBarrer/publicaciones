@@ -46,3 +46,19 @@ def set_slug_post(sender, instance, *args, **kwargs):
                 f'{instance.title}-{str(uuid.uuid4())[:8]}'
             )
         instance.slug = slug
+
+
+class Commentary(models.Model):
+    commentary_id = models.CharField(max_length=100, unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    commentary = models.TextField()
+    public_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.username
+
+
+@receiver(pre_save, sender=Commentary)
+def set_commentary_id(sender, instance, *args, **kwargs):
+    if not instance.commentary_id:
+        instance.commentary_id = str(uuid.uuid4())

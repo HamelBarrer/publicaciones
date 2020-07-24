@@ -1,6 +1,9 @@
 from django import forms
 
-from .models import Post
+from .models import (
+    Post,
+    Commentary,
+)
 
 
 class PostForm(forms.ModelForm):
@@ -20,4 +23,15 @@ class PostForm(forms.ModelForm):
                     'class': 'materialize-textarea',
                 }
             )
+        }
+
+
+class CommentaryForm(forms.ModelForm):
+    class Meta:
+        model = Commentary
+        fields = (
+            'commentary',
+        )
+        labels = {
+            'commentary': 'Comentario',
         }
